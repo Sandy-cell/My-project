@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Student Records</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+body{font-family:Segoe UI;background:#f4f6fb;margin:0;}
+.header{background:#1d2671;color:#fff;padding:15px;text-align:center;}
+.container{padding:20px;max-width:900px;margin:auto;}
+form{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px;}
+input,button{padding:10px;border-radius:6px;border:1px solid #ccc;}
+button{background:#1d2671;color:#fff;cursor:pointer;}
+table{width:100%;border-collapse:collapse;margin-top:20px;}
+th,td{padding:10px;border:1px solid #ccc;text-align:center;}
+th{background:#1d2671;color:white;}
+.del{background:red;color:white;border:none;padding:5px;border-radius:4px;}
+</style>
+</head>
+
+<body>
+<div class="header">Student Records</div>
+<div class="container">
+
+<form id="studentForm">
+    <input type="text" id="roll" placeholder="Roll No" required>
+    <input type="text" id="name" placeholder="Student Name" required>
+    <input type="text" id="course" placeholder="Course" required>
+    <button type="submit">Add Student</button>
+</form>
+
+<table>
+<thead>
+<tr>
+<th>Roll No</th>
+<th>Name</th>
+<th>Course</th>
+<th>Delete</th>
+</tr>
+</thead>
+<tbody id="list"></tbody>
+</table>
+
+</div>
+
+<script>
+let students = JSON.parse(localStorage.getItem("students")) || [];
+const list = document.getElementById("list");
+
+function show(){
+    list.innerHTML="";
+    students.forEach((s,i)=>{
+        list.innerHTML += `
+        <tr>
+            <td>${s.roll}</td>
+            <td>${s.name}</td>
+            <td>${s.course}</td>
+            <td><button class="del" onclick="del(${i})">X</button></td>
+        </tr>`;
+    });
+}
+function del(i){
+    students.splice(i,1);
+    localStorage.setItem("students",JSON.stringify(students));
+    show();
+}
+document.getElementById("studentForm").addEventListener("submit",function(e){
+    e.preventDefault();
+    let s={
+        roll:roll.value,
+        name:name.value,
+        course:course.value
+    };
+    students.push(s);
+    localStorage.setItem("students",JSON.stringify(students));
+    this.reset();
+    show();
+});
+show();
+</script>
+
+</body>
+</html>
