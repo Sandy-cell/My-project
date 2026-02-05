@@ -144,34 +144,18 @@ body{
 </div>
 
 <script>
-let correctUser="admin";
-let correctPass="12345";
-let secretCode="9999";
-
 function login(){
-    let u=user.value;
-    let p=pass.value;
-    if(u===correctUser && p===correctPass){
-        alert("Welcome Professor!");
-    }else{
-        msg.innerText="Invalid Credentials!";
+    var user = document.getElementById("user").value;
+    var pass = document.getElementById("pass").value;
+
+    if(user === "admin" && pass === "12345"){
+        window.location.href = "dashboard.html";
+    } else {
+        document.getElementById("msg").innerText = "Invalid Credentials!";
     }
 }
-function openForgot(){
-    popup.style.display="flex";
-}
-function reset(){
-    let c=code.value;
-    let np=newpass.value;
-    if(c===secretCode && np!==""){
-        correctPass=np;
-        fmsg.style.color="green";
-        fmsg.innerText="Password Reset Successfully!";
-        setTimeout(()=>popup.style.display="none",1500);
-    }else{
-        fmsg.innerText="Invalid Security Code!";
-    }
-}
+</script>
+
 </script>
 
 </body>
