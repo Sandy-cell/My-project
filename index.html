@@ -2,160 +2,109 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Professor Portal | Secure Login</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MY COLLEGE</title>
 
 <style>
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-    font-family: 'Segoe UI', sans-serif;
-}
 body{
-    min-height:100vh;
+    margin:0;
+    font-family:Arial, sans-serif;
+    background: linear-gradient(to right, #1d2671, #c33764);
+    height:100vh;
     display:flex;
     justify-content:center;
     align-items:center;
-    background: linear-gradient(135deg, #1d2671, #c33764);
 }
+
 .container{
-    width:380px;
-    background:#fff;
-    border-radius:15px;
-    box-shadow:0 20px 50px rgba(0,0,0,0.3);
-    padding:40px;
-    animation: fadeIn 1s ease;
-}
-@keyframes fadeIn{
-    from{opacity:0; transform:translateY(30px);}
-    to{opacity:1; transform:translateY(0);}
-}
-.logo{
-    text-align:center;
-    font-size:28px;
-    font-weight:bold;
-    color:#1d2671;
-}
-.sub{
-    text-align:center;
-    color:#777;
-    margin-bottom:25px;
-}
-.input-box{
-    position:relative;
-    margin-bottom:20px;
-}
-.input-box input{
-    width:100%;
-    padding:12px;
-    border:1px solid #ccc;
-    border-radius:8px;
-    outline:none;
-}
-.input-box label{
-    position:absolute;
-    top:50%;
-    left:12px;
-    color:#999;
-    transform:translateY(-50%);
-    transition:0.3s;
-    background:#fff;
-    padding:0 6px;
-}
-.input-box input:focus + label,
-.input-box input:valid + label{
-    top:-8px;
-    font-size:12px;
-    color:#1d2671;
-}
-.btn{
-    width:100%;
-    padding:12px;
-    background:linear-gradient(135deg,#1d2671,#c33764);
-    border:none;
-    color:#fff;
-    border-radius:30px;
-    cursor:pointer;
-}
-.link{
-    text-align:right;
-    font-size:13px;
-    margin-top:10px;
-    color:#1d2671;
-    cursor:pointer;
-}
-.popup{
-    position:fixed;
-    top:0;left:0;
-    width:100%;height:100%;
-    background:rgba(0,0,0,0.6);
-    display:none;
-    justify-content:center;
-    align-items:center;
-}
-.popup-box{
     background:#fff;
     padding:30px;
     border-radius:12px;
-    width:300px;
+    width:380px;
     text-align:center;
+    box-shadow:0 0 15px rgba(0,0,0,0.3);
 }
-.popup-box input{
+
+h1{ margin-bottom:15px; }
+
+.role-btn, button{
+    width:100%;
+    padding:12px;
+    margin:8px 0;
+    border:none;
+    border-radius:6px;
+    font-size:16px;
+    cursor:pointer;
+    background:#1d2671;
+    color:white;
+}
+
+.role-btn:hover, button:hover{
+    background:#c33764;
+}
+
+input{
     width:100%;
     padding:10px;
-    margin:10px 0;
+    margin:8px 0;
+    border-radius:5px;
+    border:1px solid #ccc;
 }
-.error{color:red;margin-top:10px;}
+
+.hide{ display:none; }
+
+.back{
+    background:gray;
+}
 </style>
 </head>
 
 <body>
 
 <div class="container">
-    <div class="logo">Professor Portal</div>
-    <div class="sub">Secure Access</div>
 
-    <div class="input-box">
-        <input type="text" id="user" required>
-        <label>Username</label>
+    <!-- Role Selection -->
+    <div id="roles">
+        <h1>Login Portal</h1>
+        <button class="role-btn" onclick="openLogin('Student')">Student Login</button>
+        <button class="role-btn" onclick="openLogin('Principal')">Principal Login</button>
+        <button class="role-btn" onclick="openLogin('HOD')">HOD Login</button>
+        <button class="role-btn" onclick="openLogin('Professor')">Professor Login</button>
+        <button class="role-btn" onclick="openLogin('Lab Assistant')">Lab Assistant Login</button>
     </div>
 
-    <div class="input-box">
-        <input type="password" id="pass" required>
-        <label>Password</label>
+    <!-- Login Form -->
+    <div id="loginBox" class="hide">
+        <h2 id="roleTitle"></h2>
+
+        <input type="text" id="user" placeholder="Username">
+        <input type="password" id="pass" placeholder="Password">
+
+        <button onclick="login()">Login</button>
+        <button class="back" onclick="goBack()">Back</button>
+        <p id="msg" style="color:red;"></p>
     </div>
 
-    <button class="btn" onclick="login()">Login</button>
-    <div class="link" onclick="openForgot()">Forgot Password?</div>
-    <p class="error" id="msg"></p>
-</div>
-
-<!-- Forgot Popup -->
-<div class="popup" id="popup">
-    <div class="popup-box">
-        <h3>Reset Password</h3>
-        <input type="email" id="email" placeholder="Enter Email">
-        <input type="text" id="code" placeholder="Security Code">
-        <input type="password" id="newpass" placeholder="New Password">
-        <button class="btn" onclick="reset()">Reset</button>
-        <p class="error" id="fmsg"></p>
-    </div>
 </div>
 
 <script>
-function login(){
-    var user = document.getElementById("user").value;
-    var pass = document.getElementById("pass").value;
+function openLogin(role){
+    document.getElementById("roles").classList.add("hide");
+    document.getElementById("loginBox").classList.remove("hide");
+    document.getElementById("roleTitle").innerText = role + " Login";
+}
 
-    if(user === "admin" && pass === "12345"){
-        window.location.href = "dashboard.html";
-    } else {
-        document.getElementById("msg").innerText = "Invalid Credentials!";
+function goBack(){
+    document.getElementById("loginBox").classList.add("hide");
+    document.getElementById("roles").classList.remove("hide");
+}
+
+function login(){
+    if(user.value==="admin" && pass.value==="12345"){
+        window.location.href="dashboard.html";
+    }else{
+        msg.innerText="Invalid Username or Password!";
     }
 }
-</script>
-
 </script>
 
 </body>
