@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Professor Dashboard</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+body{
+    margin:0;
+    font-family:Segoe UI, sans-serif;
+    background:#f4f6fb;
+}
+.header{
+    background:linear-gradient(135deg,#1d2671,#c33764);
+    color:white;
+    padding:20px;
+    text-align:center;
+    font-size:22px;
+}
+.card{
+    margin:30px auto;
+    width:90%;
+    max-width:800px;
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+    gap:20px;
+}
+.box{
+    background:white;
+    padding:20px;
+    border-radius:12px;
+    text-align:center;
+    box-shadow:0 5px 15px rgba(0,0,0,0.1);
+    transition:0.3s;
+}
+.box:hover{
+    transform:scale(1.05);
+}
+.box h3{
+    color:#1d2671;
+}
+.footer{
+    text-align:center;
+    margin-top:30px;
+    color:#777;
+}
+</style>
+</head>
+
+<body>
+
+<div class="header">Welcome to Professor Dashboard</div>
+
+<div class="card">
+    <div class="box">
+        <h3>Student Records</h3>
+        <p>View & manage students</p>
+    </div>
+    <div class="box">
+        <h3>Attendance</h3>
+        <p>Mark & check attendance</p>
+    </div>
+    <div class="box">
+        <h3>Results</h3>
+        <p>Upload marks</p>
+    </div>
+    <div class="box">
+        <h3>Settings</h3>
+        <p>Profile & security</p>
+    </div>
+</div>
+
+<div class="footer">© 2026 Professor Portal</div>
+
+</body>
+</html>
