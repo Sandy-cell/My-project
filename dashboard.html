@@ -21,18 +21,19 @@ body{
 .card{
     margin:30px auto;
     width:90%;
-    max-width:800px;
+    max-width:900px;
     display:grid;
     grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
     gap:20px;
 }
 .box{
     background:white;
-    padding:20px;
+    padding:25px;
     border-radius:12px;
     text-align:center;
     box-shadow:0 5px 15px rgba(0,0,0,0.1);
     transition:0.3s;
+    cursor:pointer;
 }
 .box:hover{
     transform:scale(1.05);
@@ -45,26 +46,43 @@ body{
     margin-top:30px;
     color:#777;
 }
+.logout{
+    position:absolute;
+    right:20px;
+    top:15px;
+    background:#fff;
+    color:#c33764;
+    border:none;
+    padding:8px 15px;
+    border-radius:20px;
+    cursor:pointer;
+}
 </style>
 </head>
 
 <body>
 
-<div class="header">Welcome to Professor Dashboard</div>
+<div class="header">
+    Professor Dashboard
+    <button class="logout" onclick="logout()">Logout</button>
+</div>
 
 <div class="card">
-    <div class="box">
+    <div class="box" onclick="window.location.href='students.html'">
         <h3>Student Records</h3>
         <p>View & manage students</p>
     </div>
+
     <div class="box">
         <h3>Attendance</h3>
         <p>Mark & check attendance</p>
     </div>
+
     <div class="box">
         <h3>Results</h3>
         <p>Upload marks</p>
     </div>
+
     <div class="box">
         <h3>Settings</h3>
         <p>Profile & security</p>
@@ -72,6 +90,12 @@ body{
 </div>
 
 <div class="footer">© 2026 Professor Portal</div>
+
+<script>
+function logout(){
+    window.location.href="index.html";
+}
+</script>
 
 </body>
 </html>
